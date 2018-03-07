@@ -1,8 +1,25 @@
 describe("Cliente", function () {
-    var cliente
-
+    var cliente;
     beforeEach(function () {
         cliente = new Cliente();
+    });
+    it("El contructor sin parámetros debería colocar los valores a cero", function () {
+        //estar rellenado
+        expect(cliente.nombre).toBeDefined();
+        //también está el toBeUndefined()
+        
+        //tener un valor igual
+        expect(cliente.nombre).toEqual("");
+        expect(cliente.tlf).toEqual("");
+        expect(cliente.email).toEqual("");
+        expect(cliente.active).toEqual(false);
+        
+        //Ser falso
+        expect(cliente.active).toBeFalsy();
+        //también existe toBeTruthy()
+        //la edad debe ser igual a 0
+        expect(cliente.age).toEqual(0);
+        
     });
     describe("Cuando se inicializa un cliente con parámetros", function () {
         var nombre = "Pepe";
@@ -26,29 +43,14 @@ describe("Cliente", function () {
             expect(cliente.nombre).toContain("ep");
             //toBeGreaterThan() mayor que
             expect(cliente.age).toBeGreaterThan(18);
-            //toBeLessThan() mayor que
+            //toBeLessThan() menor que
             expect(cliente.age).toBeLessThan(40);
             //toMatch() encaja con un patrón
-            expect(cliente.email).toMatch(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+            expect(cliente.email).toMatch(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/);
         });
 
     });
-    it("El contructor sin parámetros debería colocar los valores a cero", function () {
-        //estar rellenado
-        expect(cliente.nombre).toBeDefined();
-        //también está el toBeUndefined()
-        
-        //tener un valor igual
-        expect(cliente.nombre).toEqual("");
-        expect(cliente.tlf).toEqual("");
-        expect(cliente.email).toEqual("");
-        expect(cliente.active).toEqual(false);
-        
-        //Ser falso
-        expect(cliente.active).toBeFalsy();
-        //también existe toBeTruthy()
-        
-    });
+    
     it("Al llamar a imprimeDatos llama al console.log", function () {
         spyOn(cliente,"imprime");
         cliente.imprimeDatos();
@@ -56,6 +58,17 @@ describe("Cliente", function () {
         expect(cliente.imprime).toHaveBeenCalled();
         
         
+    });
+    it("El setNombre debería establecer un valor", function () {
+        var nombre="Pepe";
+        cliente.setNombre(nombre);
+        expect(cliente.nombre).toEqual(nombre);
+        
+    });
+    it("El getNombre debería devolver el valor del nombre", function () {
+        var nombre="Pepe";
+        cliente.setNombre(nombre);
+        expect(cliente.getNombre()).toEqual(nombre);
     });
     afterEach(function () {
         console.log("Aquí podríamos limpiar datos");
